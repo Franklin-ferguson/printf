@@ -14,7 +14,9 @@
  */
 int spec_c(char *str, int index, va_list argx)
 {
-	va_copy(va_list argz, argx);
+	va_list argz;
+
+	va_copy(argz, argx);
 	str[index] = (char)va_arg(argz, int);
 	va_end(argz);
 	index++;
@@ -45,6 +47,25 @@ int spec_s(char *str, int index, va_list argx)
 		str[index++] = s[i++];
 	}
 	va_end(argz);
+
+	return (index);
+}
+/**
+ * spec_s - Checks for matching chars & copies arguments to a pointer
+ * @str: Receives the content of an argument
+ * @index: Integer refers to the current position in new_str
+ * @argx: Refers to an updated copy of a va_list
+ *
+ * Description: Copies the char(s) of an arg into str
+ * Return: new_str.
+ */
+int spec_pe(char *str, int index, va_list argx)
+{
+	va_list argz;
+
+	va_copy(argz, argx);
+	str[index] = '%';
+	index++;
 
 	return (index);
 }
