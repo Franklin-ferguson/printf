@@ -16,10 +16,10 @@ int _printf(const char *format, ...)
 	va_list ap;
 	char *str, *a, *b;
 	int size, i, j;
-	int *n_chars;
+	int n_chars, *np;
 
 	va_start(ap, format);
-	size = 0, i = 0;
+	size = 0, i = 0, n_chars = 0, np = &n_chars;
 	while (format[size] != '\0')
 		size++;
 	/* Allocate memory to str */
@@ -28,14 +28,15 @@ int _printf(const char *format, ...)
 	{
 		int (*run)(char *, int *, va_list);
 
-		*a = format[j];
-		*b = format[j + 1];
+		a = &format[j];
+		b = &format[j + 1];
 		run = spec_pe_call(a, b);
-		if (*a == '%')
-			run(str, n_chars, ap);
+		if (*a == '%' || *a == '\\')
+			run(str, np, ap);
 	}
 	va_end(ap);
 	write(1, str, n_chars);
+	free(str);
 
 	return (n_chars);
 }
