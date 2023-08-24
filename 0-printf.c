@@ -26,7 +26,7 @@ int _printf(const char *format, ...)
 	str = malloc(size + 1);
 	for (j = 0; j < size; j++)
 	{
-		int (*run)(char *, int, va_list);
+		int (*run)(char *, int *, va_list);
 
 		*a = format[j];
 		*b = format[j + 1];
@@ -37,5 +37,5 @@ int _printf(const char *format, ...)
 	va_end(ap);
 	write(1, str, n_chars);
 
-	return (N_chars);
+	return (n_chars);
 }

@@ -12,7 +12,7 @@
  * based on specifier 'a''b'.
  * Return: A pointer to the required function.
  */
-int (*spec_pe_call(char *a, char *b))(char *, int, va_list)
+void (*spec_pe_call(char *a, char *b))(char *, int *, va_list)
 {
 	func_t option[] = {
 		{"%", "c", spec_c},
@@ -23,10 +23,11 @@ int (*spec_pe_call(char *a, char *b))(char *, int, va_list)
 
 	int i = 0;
 
-	while ((option[i].a) != NULL && *(option[i].a) != *a && *(option[i].b) != *b)
+	while ((option[i].a != NULL && *(option[i].a) != *a) ||
+			(*(option[i].b) != *b && option[i].b != NULL))
 		i++;
 
-	if (option[i].a == NULL || option[i].b == NULL)
+	if (option[i].b == NULL)
 		return (NULL);
 
 	return (option[i].f);
