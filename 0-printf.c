@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdarg.h>
 #include <unistd.h>
+#include <stdlib.h>
 #include "main.h"
 /**
  * _printf - Function that produces output according to format
@@ -14,7 +15,8 @@
 int _printf(const char *format, ...)
 {
 	va_list ap;
-	char *str, *a, *b;
+	char *str;
+	const char *a, *b;
 	int size, i, j;
 	int n_chars, *np;
 
@@ -26,7 +28,7 @@ int _printf(const char *format, ...)
 	str = malloc(size + 1);
 	for (j = 0; j < size; j++)
 	{
-		int (*run)(char *, int *, va_list);
+		void (*run)(char *, int *, va_list);
 
 		a = &format[j];
 		b = &format[j + 1];

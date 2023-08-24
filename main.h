@@ -6,15 +6,15 @@
 /* The printf function */
 int _printf(const char *format, ...);
 /* Specifier %c function */
-int spec_c(char *str, int *index, va_list argx);
+void spec_c(char *str, int *index, va_list argx);
 /* Specifier %s function */
-int spec_s(char *str, int *index, va_list argx);
+void spec_s(char *str, int *index, va_list argx);
 /* Specifier %% function */
-int spec_pe(char *str, int *index, va_list argx);
+void spec_pe(char *str, int *index, va_list argx);
 /* Specifier %d function */
-int spec_d(char *str, int *index, va_list argx);
+void spec_d(char *str, int *index, va_list argx);
 /* A function Pointer for % family*/
-int (*spec_pe_call(char *a, char *b))(char *, int *, va_list);
+void (*spec_pe_call(const char *a, const char *b))(char *, int *, va_list);
 
 /**
  * struct func - Structure for specifier & it's call function
@@ -25,9 +25,9 @@ int (*spec_pe_call(char *a, char *b))(char *, int *, va_list);
  */
 typedef struct func
 {
-	char *a;
-	char *b;
-	int (*f)(char *s, int *a, va_list ap);
+	const char *a;
+	const char *b;
+	void (*f)(char *s, int *a, va_list ap);
 } func_t;
 
 #endif
