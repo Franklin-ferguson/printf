@@ -7,65 +7,49 @@
  * spec_c - Checks for matching chars & copies arguments to a pointer
  * @str: Receives the content of an argument
  * @index: Integer refers to the current position in new_str
- * @argx: Refers to an updated copy of a va_list
+ * @argx: Refers to an original va_list
  *
  * Description: Copies the char(s) of an arg into str
- * Return: new_str.
+ * Return: nothing.
  */
-int spec_c(char *str, int index, va_list argx)
+void spec_c(char *str, int *index, va_list argx)
 {
-	va_list argz;
-
-	va_copy(argz, argx);
-	str[index] = (char)va_arg(argz, int);
-	va_end(argz);
-	index++;
-
-	return (index);
+	str[*index] = (char)va_arg(argx, int);
+	(*index)++;
 }
 /**
  * spec_s - Checks for matching chars & copies arguments to a pointer
  * @str: Receives the content of an argument
  * @index: Integer refers to the current position in new_str
- * @argx: Refers to an updated copy of a va_list
+ * @argx: Refers to an original va_list
  *
  * Description: Copies the char(s) of an arg into str
- * Return: new_str.
+ * Return: nothing.
  */
-int spec_s(char *str, int index, va_list argx)
+void spec_s(char *str, int *index, va_list argx)
 {
 	char *s;
 	int i = 0;
-	va_list argz;
 
-	va_copy(argz, argx);
-	s = va_arg(argz, char *);
+	s = va_arg(argx, char *);
 	if (s == NULL)
-		return (0);
-	while (s[i] != '\0' && str[index] != '\0')
+		return;
+	while (s[i] != '\0' && str[*index] != '\0')
 	{
-		str[index++] = s[i++];
+		str[(*index)++] = s[i++];
 	}
-	va_end(argz);
-
-	return (index);
 }
 /**
- * spec_s - Checks for matching chars & copies arguments to a pointer
- * @str: Receives the content of an argument
- * @index: Integer refers to the current position in new_str
- * @argx: Refers to an updated copy of a va_list
+ * spec_pe - Checks for '%' following another '%'
+ * @str: An output is appended to str
+ * @index: Refers to the current position in new_str
+ * @argx: Refers to an original va_list
  *
  * Description: Copies the char(s) of an arg into str
- * Return: new_str.
+ * Return: nothing.
  */
-int spec_pe(char *str, int index, va_list argx)
+void spec_pe(char *str, int *index, va_list argx)
 {
-	va_list argz;
-
-	va_copy(argz, argx);
-	str[index] = '%';
-	index++;
-
-	return (index);
+	str[*index] = '%';
+	(*index)++;
 }

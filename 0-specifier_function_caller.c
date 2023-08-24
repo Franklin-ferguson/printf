@@ -26,7 +26,7 @@ int (*spec_pe_call(char *a, char *b))(char *, int, va_list)
 	while ((option[i].a) != NULL && *(option[i].a) != *a && *(option[i].b) != *b)
 		i++;
 
-	if (option[i].a == NULL)
+	if (option[i].a == NULL || option[i].b == NULL)
 		return (NULL);
 
 	return (option[i].f);
